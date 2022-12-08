@@ -1,0 +1,68 @@
+<div class="group relative">
+  <!-- Loading -->
+  <div *ngIf="loading" class="h-36 w-full bg-red-400">
+    <img src="../../../assets/images/loading.gif" class="h-full w-full" />
+  </div>
+
+  <picture>
+    <source type="image/webp" [src]="item.images.fixed_width.webp" />
+    <img
+      [src]="item.images.fixed_width.url"
+      [srcset]="item.images.fixed_width.webp"
+      loading="lazy"
+      class="w-60 rounded-md"
+      (load)="onLoad()"
+    />
+  </picture>
+
+  <!-- Expand toggle -->
+
+  <div
+    class="absolute bottom-0 left-0 right-0 flex h-10 w-full cursor-pointer items-center justify-center bg-gradient-to-r from-slate-400 opacity-0 transition-all group-hover:opacity-100"
+    (click)="toggleExpand()"
+  >
+    <div *ngIf="!openExpand" class="flex">
+      <div class="mr-2">Expand</div>
+      <fa-icon [icon]="faAnglesDown"></fa-icon>
+    </div>
+    <div *ngIf="openExpand" class="flex">
+      <div class="mr-2">Hide</div>
+      <fa-icon [icon]="faAnglesUp"></fa-icon>
+    </div>
+  </div>
+
+  <!-- Expand area -->
+  <div
+    *ngIf="openExpand"
+    class="w-full animate-toggle pb-10 pt-2 transition-all"
+  >
+    <div class="py-2 px-2">
+      <div *ngIf="item.user" class="flex items-center pb-2">
+        <img
+          [src]="item.user.avatar_url"
+          class="h-8 w-8 object-cover"
+          (error)="onError()"
+        />
+        <div class="ml-3 mr-2 font-semibold">
+          {{ item.user.attribution_display_name }}
+          <span class="ml-2"
+            ><fa-icon
+              *ngIf="item.user.is_verified"
+              [icon]="faCircleCheck"
+              class="text-blue-400"
+              matTooltip="Verified"
+            ></fa-icon
+          ></span>
+        </div>
+      </div>
+      <div *ngIf="!item.user && item.title">
+        <div class="font-semibold">
+          {{ item.title }}
+        </div>
+      </div>
+      <div class="text-sm">
+        Rating: <span class="font-bold uppercase">{{ item.rating }}</span>
+      </div>
+    </div>
+  </div>
+</div>

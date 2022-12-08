@@ -1,0 +1,32 @@
+<div class="bg-dark-blue py-4 px-6 text-white">
+  <!-- Loading -->
+  <div *ngIf="loading">Loading...</div>
+
+  <!-- Empty result -->
+  <div *ngIf="!loading && gifDataCol[0].length === 0">
+    <p>No trending GIFs</p>
+  </div>
+
+  <!-- ================================ -->
+  <div *ngIf="!loading && gifDataCol[0].length > 0">
+    <h3 class="text-lg font-bold text-white">Trending GIFs</h3>
+    <div class="mt-4 flex justify-between pb-4">
+      <div *ngFor="let col of gifDataCol" class="flex w-60 flex-col">
+        <div *ngFor="let item of col; trackBy: trackByFn" class="mb-4 flex">
+          <app-gif [item]="item"></app-gif>
+        </div>
+      </div>
+    </div>
+
+    <!-- More button -->
+    <div class="flex w-full justify-center py-6" *ngIf="seeMore">
+      <div
+        (click)="getGifList()"
+        class="flex cursor-pointer items-center rounded-md bg-green-600 px-4 py-2 hover:opacity-50"
+      >
+        <div class="mr-3">See more</div>
+        <fa-icon [icon]="faAnglesDown"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="flex h-20 w-full items-center justify-between bg-dark-blue px-2">
+  <div class="mr-4 flex h-full w-52 cursor-pointer items-center">
+    <a [routerLink]="['']"
+      ><img
+        src="https://1757140519.rsc.cdn77.org/blog/wp-content/uploads/2020/08/gipsi-gif-logo.gif"
+        alt="logo"
+    /></a>
+  </div>
+  <div class="flex h-full flex-1 items-center p-4">
+    <div class="h-full w-4/5 rounded-md">
+      <input
+        type="text"
+        class="h-full w-full rounded-md px-3 outline-none"
+        placeholder="Search GIFs"
+        [(ngModel)]="searchText"
+        (keypress)="onSearchKeyPress($event)"
+        [formControl]="searchInputControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="search()">
+        <mat-option
+          *ngFor="let option of searchSuggestOptions"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div
+      class="ml-2 flex h-full cursor-pointer items-center rounded-md bg-pink-600 px-4 py-2 text-white"
+      (click)="search()"
+    >
+      <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+    </div>
+  </div>
+</div>
