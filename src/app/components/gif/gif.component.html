@@ -1,14 +1,13 @@
 <div class="group relative">
-  <!-- Loading -->
-  <div *ngIf="loading" class="h-36 w-full bg-red-400">
-    <img src="../../../assets/images/loading.gif" class="h-full w-full" />
-  </div>
-
   <picture>
     <source type="image/webp" [src]="item.images.fixed_width.webp" />
     <img
       [src]="item.images.fixed_width.url"
-      [srcset]="item.images.fixed_width.webp"
+      [srcset]="
+        loading
+          ? '../../../assets/images/loading.gif'
+          : item.images.fixed_width.webp
+      "
       loading="lazy"
       class="w-60 rounded-md"
       (load)="onLoad()"

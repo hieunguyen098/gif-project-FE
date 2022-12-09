@@ -62,7 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   search(): void {
-    console.log(1);
     if (this.searchText.trim()) {
       this.searchService.searchTextChanged.next(this.searchText);
       this.router.navigate(['/search', this.searchText]);
